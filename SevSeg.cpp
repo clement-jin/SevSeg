@@ -319,8 +319,8 @@ void SevSeg::refreshDisplay() {
 void SevSeg::segmentOn(uint8_t segmentNum) {
   digitalWrite(segmentPins[segmentNum], segmentOnVal);
   for (uint8_t digitNum = 0 ; digitNum < numDigits ; digitNum++) {
-    if (digitCodes[digitNum] & (1 << segmentNum)) { // Check a single bit
-      digitalWrite(digitPins[digitNum], digitOnVal);
+    if (digitCodes[digitNum] & (1 << segmentNum)) { // Checks if the segment is part of each digit
+      digitalWrite(digitPins[digitNum], digitOnVal); // Turns on all digits which use that segment 
     }
   }
 }
@@ -342,8 +342,8 @@ void SevSeg::segmentOff(uint8_t segmentNum) {
 void SevSeg::digitOn(uint8_t digitNum) {
   digitalWrite(digitPins[digitNum], digitOnVal);
   for (uint8_t segmentNum = 0 ; segmentNum < numSegments ; segmentNum++) {
-    if (digitCodes[digitNum] & (1 << segmentNum)) { // Check a single bit
-      digitalWrite(segmentPins[segmentNum], segmentOnVal);
+    if (digitCodes[digitNum] & (1 << segmentNum)) { // Checks if the digit uses each segment 
+      digitalWrite(segmentPins[segmentNum], segmentOnVal); // Turns on all segments used by that digit
     }
   }
 }
